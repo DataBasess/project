@@ -10,10 +10,9 @@
 <ion-content padding background-color>
 
           <ion-slides pager style="height: 20%; margin-top: 20px;" >
-            <ion-slide  class="slide" *ngFor="let slide of listProjectIntro" >
-              
+            <ion-slide  class="slide" *ngFor="let slide of projectList" >              
               <div align="center" class="slide-subtitle">{{slide.name | slice:10:60 }}</div>
-              <img [src]="slide.images" class="slide-images"/> 
+              <img [src]="slide.imageproject" class="slide-images"/> 
             </ion-slide>      
           </ion-slides>
 
@@ -21,9 +20,9 @@
         <h2>โครงการแนะนำ</h2>
         <div class="gid">
           <ion-row>
-              <ion-col class="item" col-6 *ngFor="let item of listProjectIntro"  (click)="showDetial(item)">
-                <ion-card>
-                  <img *ngIf="item.images!=''" [src]="item.images" />
+              <ion-col class="item" col-6 *ngFor="let item of projectList">
+                <ion-card  (click)="showDetial(item)" ><!-- *ngIf="item.status==true" -->
+                  <img *ngIf="item.imageproject!=''" [src]="item.imageproject" />
                   <p>{{item.name | slice:10:60 }}</p>   
                 </ion-card>     
               </ion-col>

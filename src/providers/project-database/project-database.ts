@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Project } from '../../model/interface/project';
+import { FirebaseListFactoryOpts } from 'angularfire2/database-deprecated/interfaces';
 
 /*
   Generated class for the ProjectDatabaseProvider provider.
@@ -16,6 +17,8 @@ export class ProjectDatabaseProvider {
     private database:AngularFireDatabase
   ) { }
 
+  opts: FirebaseListFactoryOpts;
+
 
 
   save(project:Project){
@@ -29,6 +32,17 @@ export class ProjectDatabaseProvider {
 
   get(key:string):FirebaseObjectObservable<Project>{
     return this.database.object('/project/'+key);
+  }
+
+  search(keyword:string):FirebaseListObservable<Project[]>{
+    this.opts = {
+      query: {
+        orderByChild: 'name',
+        equalTo: keyword,
+        orderByValue:true
+      }
+    };
+    return this.database.list('/project',this.opts);
   }
 
   update(project:Project){

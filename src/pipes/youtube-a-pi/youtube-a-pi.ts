@@ -12,7 +12,7 @@ export class YoutubeAPiPipe implements PipeTransform {
   constructor(
     private sanitizer: DomSanitizer,
   ) {}
-  transform(url) {
+  transform(url):SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+url);
     
   }

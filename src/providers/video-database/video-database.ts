@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { FirebaseListFactoryOpts } from 'angularfire2/database-deprecated/interfaces';
+import { Video } from '../../model/interface/video';
 
 /*
   Generated class for the VideoDatabaseProvider provider.
@@ -10,8 +13,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class VideoDatabaseProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello VideoDatabaseProvider Provider');
+  constructor(
+    private database:AngularFireDatabase
+  ) { }
+
+  opts: FirebaseListFactoryOpts;
+
+
+
+  save(video:Video){
+    //user.sort = this.countUser();
+    return this.database.list('/video').push(video);
+  }
+
+  getList():FirebaseListObservable<Video[]>{
+    return this.database.list('/video');
   }
 
 }

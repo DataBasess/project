@@ -15,7 +15,7 @@
 
 <ion-content class="card-background-page">
 
-    <ion-searchbar (ionInput)="search($event)" placeholder="ค้นหาชื่อโครงการ"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="keyword" (keyup)="search(keyword)" placeholder="ค้นหาชื่อโครงการ"></ion-searchbar>
 
     <!-- <div align="right">
       <button ion-button clear color="gray" (click)="doProvice()">

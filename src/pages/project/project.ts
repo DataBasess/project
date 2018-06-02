@@ -22,7 +22,7 @@ import { Project } from '../../model/interface/project';
 export class ProjectPage {
 
   projectList:Project[];
-
+  keyword='';
   category:any;
 
   constructor(public navCtrl: NavController,
@@ -34,9 +34,7 @@ export class ProjectPage {
               private projectDatabase:ProjectDatabaseProvider,
               public cate: CategoryProvider) {
 
-              this.projectDatabase.getList().subscribe(list=>{
-                this.projectList = list;
-              })  
+              this.getList();  
 
 
   }
@@ -45,19 +43,32 @@ export class ProjectPage {
     console.log('ionViewDidLoad ProjectPage');
   }
 
+  getList(){
+    this.projectDatabase.getList().subscribe(list=>{
+      this.projectList = list;
+      console.log(list);
+      
+    }) 
+  }
+
   showDetial(item){
     // alert(item.detail)
     this.navCtrl.push("Projectdetail2Page",item);
     
   }
 
-  search(ev: any){
-
-    let keyword = ev.target.value;
-    console.log(keyword);
-    this.projectByKeyWord.getProjecByKeyWord(keyword).then((data:any) => {
-      this.projectList = data;
-    })
+  search(keyword:string){  
+    if(keyword!=''){
+      this.projectDatabase.search(keyword).subscribe(list=>{
+        this.projectList = list;
+        console.log(list);
+        
+      })  
+      // this.projectList = this.projectList.filter(project=>project.name === keyword);
+         
+    }else{
+      this.getList();
+    }  
     
   }
 

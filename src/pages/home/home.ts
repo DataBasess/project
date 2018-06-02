@@ -4,6 +4,8 @@ import { GetProjectIntroProvider } from '../../providers/project/get-project-int
 import { GetProjectProvider } from '../../providers/project/get-project';
 import { GetProjectByProvinceProvider } from '../../providers/project/get-projectByProvice';
 import { GetProjectByKeyWordProvider } from '../../providers/project/get-projectByKeyWord';
+import { ProjectDatabaseProvider } from '../../providers/project-database/project-database';
+import { Project } from '../../model/interface/project';
 
 @Component({
   selector: 'page-home',
@@ -13,24 +15,26 @@ export class HomePage {
   
   listProjectIntro:any;
  
-  projectList:any;
+  projectList:Project[];
 
   constructor(public navCtrl: NavController,
               public projectIntro: GetProjectIntroProvider,
               public project: GetProjectProvider,
               public projectByProvince: GetProjectByProvinceProvider,
-              public projectByKeyWord: GetProjectByKeyWordProvider
+              public projectByKeyWord: GetProjectByKeyWordProvider,
+              private projectDatabase:ProjectDatabaseProvider,
             ) {
-
-                this.projectIntro.getProjectIntro().then(data => {
-                  this.listProjectIntro = data;
-                  console.log(data);
-                  
-                })
-  }
+              this.getList();
+            }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProjectPage');
+  }
+
+  async getList(){
+    await this.projectDatabase.getList().subscribe(list=>{
+      this.projectList = list;
+    }) 
   }
 
   search(ev: any){
