@@ -66,15 +66,24 @@ export class LoginPage {
     console.log('user===',form);
     this.angularFireAuth.auth.signInWithEmailAndPassword(form.email,form.password).then(user=>{
       this.loginProvider.getUser(user.uid).subscribe((account:User)=>{
-        this.loginSuccess()
-        this.profile = account;
-        console.error("uer===",account);
-        localStorage.setItem("user_id",account.user_id);
-        localStorage.setItem("email",account.email);
-        localStorage.setItem("name",account.name);
-        this.navCtrl.setRoot('UserPage');    
-        const root = this.app.getRootNav();
-        root.popToRoot();
+        if(account.permission){
+          this.loginSuccess()
+          this.profile = account;
+          console.error("uer===",account);
+          localStorage.setItem("user_id",user.uid);
+          localStorage.setItem("email",account.email);
+          localStorage.setItem("name",account.name);
+
+          this.navCtrl.setRoot(TabsPage);    
+          const root = this.app.getRootNav();
+          root.popToRoot();
+        }else{
+          this.invalid();
+          this.navCtrl.setRoot('LoginPage');    
+          const root = this.app.getRootNav();
+          root.popToRoot();
+        }
+        
       })
     }).catch(e=>{
         this.invalid();

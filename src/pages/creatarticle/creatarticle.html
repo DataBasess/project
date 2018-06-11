@@ -14,42 +14,29 @@
 
 
 <ion-content padding>
-    <ion-list>
+    <!-- <img *ngIf="creatarticle.Img==''" src="myphoto" width='100%' height='auto' /> -->
+    <img *ngIf="creatarticle.Img!=''"  src="{{creatarticle.Img}} | async" width='100%' height='100%' />
+    <button ion-button color="secondary" round full (click)="cropImage()">เลือกรูปภาพ</button>
+    <ion-list>     
+      <ion-item>
+        <ion-label stacked>ชื่อบทความ</ion-label>
+        <ion-input type="text" [(ngModel)]="creatarticle.name"></ion-input>
+      </ion-item>
 
-        <ion-list>
-            <ion-item>
-                <ion-label stacked>ชื่อบทความ</ion-label>
-                <ion-input type="textarea" ></ion-input>
-            </ion-item>
-              
-              <ion-item>
-                <ion-label floating>รายละเอียด</ion-label>
-                <ion-textarea rows="6"></ion-textarea>
-              </ion-item>
-            
-            <!-- <ion-item>
-              <ion-label floating>รหัสผ่าน</ion-label>
-              <ion-input type="password"></ion-input>
-            </ion-item> -->
+      <ion-item>
+        <ion-label floating>รายละเอียด</ion-label>
+        <ion-textarea rows="6" [(ngModel)]="creatarticle.detail"></ion-textarea>
+      </ion-item>
 
-            <!-- <ion-item>
-                <ion-label floating>เพศ</ion-label>
-                <ion-select [(ngModel)]="gaming">
-                  <ion-option value="nes">ชาย</ion-option>
-                  <ion-option value="n64">หญิง</ion-option>
-                </ion-select>
-            </ion-item>
+      <br>
+      <button ion-button color="secondary" round full (click)="save(creatarticle)">ยืนยัน</button>
+    </ion-list>
 
-              <ion-item>
-                  <ion-label floating >วัน/เดือน/ปี</ion-label>
-                  <ion-datetime displayFormat="D/MM/YYYY" pickerFormat="D MM YYYY" name="created"></ion-datetime>
-          </ion-item> -->
-          <br>
-          <button ion-button color="secondary" round full>ยืนยัน</button>
-          </ion-list>
-        
-      
-      </ion-list>
+  <!-- <button ion-button color="secondary" round full (click)="takePhoto()">รูปภาพ</button>
+  <button ion-button color="secondary" round full (click)="getImage()">อัลบั้ม</button>
+  <button ion-button color="secondary" round full (click)="cropImage()">คอปภาพ</button> -->
+
   
+
 
 </ion-content>

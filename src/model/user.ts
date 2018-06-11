@@ -8,5 +8,5 @@ export interface User {
     sex:string
     age:string
     
-    permission:string
+    permission:boolean
 }

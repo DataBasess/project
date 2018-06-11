@@ -15,4 +15,21 @@
 
 <ion-content padding>
 
+    <ion-list>
+        <ion-item-sliding *ngFor="let project of projectList">
+          <ion-item>
+            <ion-avatar item-start>
+              <img [src]="project.imageproject">
+            </ion-avatar>
+            <h2>{{project.name}}</h2>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="secondary" (click)="remove(project)">
+              <ion-icon name="md-trash"></ion-icon>
+              ลบ
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
 </ion-content>

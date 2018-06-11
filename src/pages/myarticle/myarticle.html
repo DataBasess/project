@@ -23,5 +23,22 @@
         
       
       </div>
+      <ion-item-group>
+        <ion-item-divider color="light">รายการบทความของฉัน</ion-item-divider>
+        <ion-item *ngFor="let item of CreatarticleList" >
+          <ion-thumbnail item-start>
+            <img src="{{item.Img}}">
+          </ion-thumbnail>
+          <h3>{{item.name}}</h3>
+          <p>{{item.date | date}}</p>
+          <p style="color: rgb(236, 233, 8);" *ngIf="item.status=='wait'">รออนุมัติ</p>
+          <p style="color: red;" *ngIf="item.status=='reject'">ไม่อนุมัติ</p>
+          <p style="color: rgb(7, 172, 7);" *ngIf="item.status=='approve'">อนุมัติแล้ว</p>
+          <button class="btn btn-danger"  class="btn btn-danger" (click)="showContent(item)" >ดู</button>
+          <button class="btn btn-danger"  class="btn btn-danger" (click)="delete(item)" >ลบ</button>
+        </ion-item>
+        
+      </ion-item-group>
 
 </ion-content>
+

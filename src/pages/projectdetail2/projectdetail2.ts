@@ -1,10 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {Platform} from "ionic-angular";
 import {GoogleMaps, GoogleMap, LatLng, GoogleMapsEvent} from "@ionic-native/google-maps";
 import { ProjectDatabaseProvider } from '../../providers/project-database/project-database';
 import { Project } from '../../model/interface/project';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ProjectLikeProvider } from '../../providers/project-like/project-like';
 
 /**
  * Generated class for the Projectdetail2Page page.
@@ -26,7 +27,9 @@ export class Projectdetail2Page {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private projectDatabase:ProjectDatabaseProvider,
-              private domSanitizer:DomSanitizer
+              private domSanitizer:DomSanitizer,
+              private projectLike:ProjectLikeProvider,
+              public toastCtrl: ToastController,
             ) {
               this.project = this.navParams.data;
               
@@ -36,7 +39,52 @@ export class Projectdetail2Page {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Projectdetail2Page');
+    this.project = this.navParams.data;
 
+  }
+
+  
+
+  like(project:Project){
+    this.projectLike.search(project.name).subscribe(list=>{
+      if(list.length==0){
+        this.projectLike.save(project).then(res=>{
+          this.ok();
+        })
+      }else{
+        this.err();
+      }
+    })  
+    
+  }
+
+
+  err() {
+    let toast = this.toastCtrl.create({
+      message: 'ขออภัย..! โครงการนี้มีอยู่ในล้ว',
+      duration: 3000,
+      position: 'top'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
+  ok() {
+    let toast = this.toastCtrl.create({
+      message: 'เพิ่มโครงการที่ชอบแล้ว',
+      duration: 3000,
+      position: 'top'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 
   

@@ -6,6 +6,8 @@ import { GetProjectByKeyWordProvider } from '../../providers/project/get-project
 import { CategoryProvider } from '../../providers/category/category';
 import { ProjectDatabaseProvider } from '../../providers/project-database/project-database';
 import { Project } from '../../model/interface/project';
+import { CatrgoryDatabaseProvider } from '../../providers/catrgory-database/catrgory-database';
+import { Category } from '../../model/interface/category';
 
 /**
  * Generated class for the ProjectPage page.
@@ -23,7 +25,9 @@ export class ProjectPage {
 
   projectList:Project[];
   keyword='';
-  category:any;
+  categoryList:Category[];
+
+  section:string="index";
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -32,15 +36,37 @@ export class ProjectPage {
               public projectByProvince: GetProjectByProvinceProvider,
               public projectByKeyWord: GetProjectByKeyWordProvider,
               private projectDatabase:ProjectDatabaseProvider,
-              public cate: CategoryProvider) {
-
-              this.getList();  
-
-
-  }
+              private catrgoryDatabase:CatrgoryDatabaseProvider
+            ) {
+              this.section = "index";
+              this.getList(); 
+              this.getCatList(); 
+            }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProjectPage');
+  }
+
+  getProjectCat(category:Category){
+    console.log(category);
+    this.projectDatabase.getProjectCat(category.name).subscribe(list=>{
+      this.projectList = list;
+      console.log(this.projectList);
+      
+    })    
+    this.section = 'list';    
+  }
+  
+  gotoCat(){
+    this.section = "index";
+  }
+
+  getCatList(){
+    this.catrgoryDatabase.getList().subscribe(list=>{
+      this.categoryList = list;
+      console.log(this.categoryList);
+      
+    })
   }
 
   getList(){
@@ -69,6 +95,7 @@ export class ProjectPage {
     }else{
       this.getList();
     }  
+    this.section = 'list';
     
   }
 

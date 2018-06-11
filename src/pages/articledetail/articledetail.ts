@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Creatarticle } from '../../model/interface/creatarticle';
 
 /**
  * Generated class for the ArticledetailPage page.
@@ -14,20 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'articledetail.html',
 })
 export class ArticledetailPage {
-  articleList:any;
-  content:string;
-  name:string;
+  article:Creatarticle={name:'',detail:'',status:'',uid:'',Img:'',date:''};
 
   constructor(public navCtrl: NavController, 
-              public navParams: NavParams) {
-  }
+              public navParams: NavParams
+            ) {
+              this.article = this.navParams.data;
+            }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ArticledetailPage');
-
-    this.articleList = this.navParams.data;
-
-    this.content = this.articleList.content;
+    console.log('ionViewDidLoad ArticledetailPage');    
   }
 
 }

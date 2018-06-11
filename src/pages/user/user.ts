@@ -67,7 +67,7 @@ export class UserPage {
       this.navCtrl.push("MyarticlePage");
     }
     else if(this.user_id!=null && n==3){
-      this.navCtrl.push("NotificationsPage");
+      this.navCtrl.push("EditprofilePage");
     }
     else{
       this.showAlert();
@@ -83,4 +83,11 @@ export class UserPage {
     });
     alert.present();
   }
+
+  home(){
+    this.navCtrl.setRoot(TabsPage);    
+    const root = this.app.getRootNav();
+    root.popToRoot();
+  }
+  
 }

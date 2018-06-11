@@ -15,28 +15,18 @@
 
 <ion-content class="card-background-page">
 
-    <ion-searchbar [(ngModel)]="keyword" (keyup)="search(keyword)" placeholder="ค้นหาชื่อโครงการ"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="keyword" (ionChange)="search(keyword)" placeholder="ค้นหาชื่อโครงการ"></ion-searchbar>
 
-    <!-- <div align="right">
-      <button ion-button clear color="gray" (click)="doProvice()">
-        หมวดหมู่ &nbsp;<ion-icon name="apps"></ion-icon>
-      </button>
-    </div> -->
-
-
-      <ion-card margin-top *ngFor="let item of category" (click)="showProjectByCategory(item)"> 
+    <section *ngIf="section=='index'" >
+        <ion-card  margin-top *ngFor="let item of categoryList" (click)="getProjectCat(item)">       
+            <!-- <h2 align="center"> {{item.province}}</h2> -->
+            <img [src]="item.image" />
+            <div align="center" class="card-subtitle">{{item.name}}</div>
+        </ion-card>
+    </section>      
       
-          <!-- <h2 align="center"> {{item.province}}</h2> -->
-          <img [src]="item.images"/>
-          <div align="center" class="card-subtitle">{{item.province}}</div>
-      </ion-card>
-
-    
-
-      <br>
-
-
-      <div class="gid">
+      <div class="gid" *ngIf="section=='list'">
+          <button ion-button round (click)="gotoCat()" >กลับไปหน้าหมวดหมู่</button>
           <ion-row>
               <ion-col col-6 *ngFor="let item of projectList" (click)="showDetial(item)">
 

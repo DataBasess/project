@@ -26,18 +26,20 @@
       <ion-col col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4>
         <ion-card text-left>
      
-          <div card-image>
+          <!-- <div card-image>
             <ion-slides pager style="height: 30%; margin-top: 0px;" card-image>
                 <ion-slide *ngFor="let slide of slides" >
                       <img [src]="slide.image" class="slide-image"/>
                 </ion-slide>      
             </ion-slides>
-          </div>
+          </div> -->
     
             <ion-card-content>
               <ion-card-title>
-                <h1 card-subtitle><b>{{name}}</b></h1>
-                <p card-body-text>{{content}}</p>
+                <img src="{{article.Img}} | async" />
+                <h1 card-subtitle><b>{{article.name}}</b></h1>
+                <p card-body-text>{{article.detail}}</p>
+                <p>วันที่เขียนบทความ {{article.date | date }}</p>
               </ion-card-title>
             </ion-card-content>
           </ion-card>

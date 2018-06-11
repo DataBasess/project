@@ -16,7 +16,11 @@
 <ion-content padding>
     <ion-list>
       <ion-item *ngFor="let item of articleList" (click)="showContent(item)">
-        {{item.article_name}}
+        <ion-thumbnail item-start>
+          <img src="{{item.Img}}">
+        </ion-thumbnail>
+        <h3>{{item.name}}</h3>
+        <h4>{{item.date | date }}</h4>
       </ion-item>
     </ion-list>
   

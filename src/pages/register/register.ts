@@ -59,7 +59,8 @@ export class RegisterPage {
       email:['',Validators.compose([Validators.required,
                                                   Validators.email])],
       age:['',Validators.compose([Validators.required])],
-      sex:['',Validators.compose([Validators.required])]
+      sex:['',Validators.compose([Validators.required])],
+      permission:[true]
       
     })
 

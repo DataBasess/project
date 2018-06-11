@@ -27,7 +27,13 @@ export class ProjectDatabaseProvider {
   }
 
   getList():FirebaseListObservable<Project[]>{
-    return this.database.list('/project');
+    this.opts = {
+      query: {
+        orderByChild: 'home',
+        equalTo: true
+      }
+    };
+    return this.database.list('/project',this.opts);
   }
 
   get(key:string):FirebaseObjectObservable<Project>{
@@ -38,8 +44,17 @@ export class ProjectDatabaseProvider {
     this.opts = {
       query: {
         orderByChild: 'name',
-        equalTo: keyword,
-        orderByValue:true
+        equalTo: keyword
+      }
+    };
+    return this.database.list('/project',this.opts);
+  }
+
+  getProjectCat(category:string):FirebaseListObservable<Project[]>{
+    this.opts = {
+      query: {
+        orderByChild: 'category',
+        equalTo: category,
       }
     };
     return this.database.list('/project',this.opts);

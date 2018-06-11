@@ -6,7 +6,6 @@ export interface User {
     email:string
     password:string
     sex:string
-    age:string
-    
+    age:string    
     permission:boolean
 }

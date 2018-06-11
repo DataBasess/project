@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { Category } from '../../model/interface/category';
 
 /*
   Generated class for the CatrgoryDatabaseProvider provider.
@@ -10,8 +12,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CatrgoryDatabaseProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello CatrgoryDatabaseProvider Provider');
+  constructor(
+    private database:AngularFireDatabase
+  ) { }
+
+  getList():FirebaseListObservable<Category[]>{
+    return this.database.list('/category');
   }
 
 }

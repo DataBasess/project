@@ -32,6 +32,7 @@
           <ion-card-content>
             <ion-card-title>
               <h1 card-subtitle><b>{{project.name}}</b></h1>
+              <ion-icon (click)="like(project)" ios="ios-bookmark" md="md-bookmark"></ion-icon>              
               <p card-body-text>{{project.detail}}</p>
             </ion-card-title>
           </ion-card-content>
